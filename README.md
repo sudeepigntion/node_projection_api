@@ -2,6 +2,29 @@
 This is a framework built over nodejs express framework and ws library. It is built as inspiration to GraphQL by facebook.
 In this you can invoke methods using http/1.1 and get streaming packets using http/2 push and websockets.
 
+// All request are post request, run the server.js it will eshtablish http/1.1, websocket and http/2 push server
+
+// Make post request with the following payload and header as Content-Type:application, send this payload with http/2 client code sample written at the bottom
+
+// Make websocket message payload with the following
+
+// For http/2 stream packets are splitted with \r\n\r\n 
+
+	{
+		"Login":{
+			"requestPayload":{
+				"username":"Joe",
+				"password":"kaihiwatari"
+			}
+		},
+		"GetProfile":{},
+		"SchemeMaster":{
+			"requestPayload":{
+				"category":"EQUITY"
+			}
+		}
+	}
+
 // Here we are importing Project parser module
 
 	const parserSchema = require("./ProjectParser");
