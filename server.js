@@ -29,3 +29,7 @@ parserSchema.Project.Listen("http","127.0.0.1:8000");
 parserSchema.Project.SetRoutePath("/");
 
 parserSchema.Project.StartStreaming();
+
+parserSchema.Project.CreateHttpStreaming("http","127.0.0.1:8100");
+
+parserSchema.Project.StartHttpStreaming();
