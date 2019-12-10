@@ -15,6 +15,13 @@ function post(url, path, body)
         "Content-Length": buffer.length,
     });
 
+
+    req.on('response', (headers, flags) => {
+        for (const name in headers) {
+          console.log(`${name}: ${headers[name]}`);
+        }
+    });
+
     req.setEncoding('utf8');
 
     var data = "";
@@ -29,7 +36,14 @@ function post(url, path, body)
     req.on('end', () => {
 
        console.log(data);
+
+       client.close();
     });
+
+    req.on("error",function(err)
+    {
+        console.log(err);
+    })
 }
 
 post("http://127.0.0.1:8100", "/", {

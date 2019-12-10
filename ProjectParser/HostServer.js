@@ -180,14 +180,14 @@ function CreateHttpStreaming(protocol, hostName, sslOptions)
         {
             if(host !== "localhost" && host !== "127.0.0.1")
             {
-                server = https.createSecureServer(sslOptions).listen(host, port, function()
+                server = http2.createSecureServer(sslOptions).listen(host, port, function()
                 {
                     console.log(`Server is listening at host: ${host} and port: ${port}`);
                 });
             }
             else
             {
-                server = https.createSecureServer(sslOptions).listen(port, function()
+                server = http2.createSecureServer(sslOptions).listen(port, function()
                 {
                     console.log(`Server is listening at host: ${host} and port: ${port}`);
                 });
