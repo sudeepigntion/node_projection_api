@@ -17,14 +17,18 @@ function post(url, path, body)
 
     req.setEncoding('utf8');
 
+    var data = "";
+
     req.on('data', (chunk) => {
-        console.log(chunk.toString());
+        console.log(chunk);
+        data += chunk;
     });
 
     req.end(buffer);
 
     req.on('end', () => {
-       console.log("ok");
+
+       console.log(data);
     });
 }
 

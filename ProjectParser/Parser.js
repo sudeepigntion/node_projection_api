@@ -173,7 +173,9 @@ async function HandleHttp2StreamingRequest(req, res, message)
                 }
             }
 
-            res.write(JSON.stringify(waitResp));
+            var byteString = JSON.stringify(waitResp) +"\r\r\n\n";
+
+            res.write(byteString);
         }
 
         res.end();
@@ -182,10 +184,12 @@ async function HandleHttp2StreamingRequest(req, res, message)
     {
         console.log(e);
 
-        ws.send(JSON.stringify({
+        var byteString = JSON.stringify({
             status:false,
             msg:"Oops, something went wrong"
-        }));
+        }) +"\r\r\n\n";
+
+        res.end(byteString);
     }
 }
 
