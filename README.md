@@ -4,7 +4,7 @@ In this you can invoke methods using http/1.1 and get streaming packets using ht
 
 // All request are post request, run the server.js it will eshtablish http/1.1, websocket and http/2 push server
 
-// Make post request with the following payload and header as Content-Type:application, send this payload with http/2 client code sample written at the bottom
+// Make post request with the following payload and header as Content-Type:application/json , send this payload with http/2 client code sample written at the bottom
 
 // Make websocket message payload with the following
 
