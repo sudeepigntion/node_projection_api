@@ -15,19 +15,19 @@ In this you can invoke methods using http/1.1 and get streaming packets using ht
 // Here we are creating schema for method invocation.
 // It requires 2 parameters
 
-1. Method Object
-2. Timeout for the request to complete, if the routes is not able to give response in between the timeout then it will terminate the route and give timeout response to client
+// Method Object
+// Timeout for the request to complete, if the routes is not able to give response in between the timeout then it will terminate the route and give timeout response to client
 
-		parserSchema.Project.CreateSchema({
-		    "Login":{
-			method:Login,
-			timeout:100,
-		    },
-		    "GetProfile":{
-			method:GetProfile,
-			timeout:100,
-		    }
-		});
+	parserSchema.Project.CreateSchema({
+	    "Login":{
+		method:Login,
+		timeout:100,
+	    },
+	    "GetProfile":{
+		method:GetProfile,
+		timeout:100,
+	    }
+	});
 
 // Here we are invoking express framework use method to create interceptor
 
