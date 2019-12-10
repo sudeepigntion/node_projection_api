@@ -1,7 +1,7 @@
 async function Init(payload)
 {
     await sleep();
-    
+
     return new Promise((resolve, reject) =>{
 
 
@@ -19,7 +19,7 @@ async function sleep()
         setTimeout(function()
         {
             resolve(true);
-        }, 5000)
+        }, 1000)
     });
 }
 

@@ -30,12 +30,11 @@ async function HandleRequest(req, res)
             {
                 waitResp[key] = {
                     status:false,
-                    msg:"No Methods found"
+                    msg:`No Method named ${key} found`
                 };
             }
             else
             {
-
                 Promise.timeout = function(timeout, cb)
                 {
                     return Promise.race([
@@ -58,8 +57,6 @@ async function HandleRequest(req, res)
                 }
                 else
                 {
-                    clearTimeout(callback.timer);
-
                     waitResp[key] = callback;
                 }
             }
@@ -69,14 +66,70 @@ async function HandleRequest(req, res)
     }
     catch(e)
     {
-        console.log(e);
+        res.send({
+            status:false,
+            msg:"Oops, something went wrong"
+        });
     }
 }
 
-async function invokeMethod()
+async function HandleStreamingRequest(ws, message)
 {
-    
+    try
+    {
+        for(var key in message)
+        {
+            var waitResp = {};
+
+            if(Schema[key] === undefined)
+            {
+                waitResp[key] = {
+                    status:false,
+                    msg:`No Method named ${key} found`
+                };
+            }
+            else
+            {
+                Promise.timeout = function(timeout, cb)
+                {
+                    return Promise.race([
+                        Schema[key].method.Init(message),
+                        new Promise(function(resolve, reject)
+                        {
+                            setTimeout(function() { resolve(false) }, timeout);
+                        })
+                    ]);
+                }
+
+                let callback = await Promise.timeout(Schema[key].timeout);
+
+                if(!callback)
+                {
+                    waitResp[key] = {
+                        status:false,
+                        msg:`Method ${key} timed out`
+                    };
+                }
+                else
+                {
+                    waitResp[key] = callback;
+                }
+            }
+
+            ws.send(JSON.stringify(waitResp));
+        }
+    }
+    catch(e)
+    {
+        console.log(e);
+
+        ws.send(JSON.stringify({
+            status:false,
+            msg:"Oops, something went wrong"
+        }));
+    }
 }
 
 exports.CreateSchema = CreateSchema;
 exports.HandleRequest = HandleRequest;
+exports.HandleStreamingRequest = HandleStreamingRequest;

@@ -2,7 +2,11 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const https = require("https");
 const http = require("http");
-const app = express()
+const WebSocket = require('ws').Server;
+const app = express();
+
+let wss = null;
+let server = null;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -12,15 +16,77 @@ app.use(bodyParser.json())
 
 function Use(param)
 {
-    app.use(param)
+    if(typeof(param) === "function")
+    {
+        app.use(function(req,res,next)
+        {
+            param(req,res,next)
+        })
+    }
+    else
+    {
+        app.use(param);
+    }
+}
+
+function StartStreaming()
+{
+    wss = new WebSocket({
+        server: server
+    });
+
+    const streamingParser = require("./Parser");
+
+    wss.on('connection', function connection(ws)
+    {
+        ws.isAlive = true;
+
+        ws.on('pong', heartbeat);
+
+        ws.on("error",function(err)
+        {
+           console.log(err);
+        });
+
+        ws.on('message', function incoming(message)
+        {
+            streamingParser.HandleStreamingRequest(ws, JSON.parse(message));
+        });
+    });
+
+    wss.on("error",function(err)
+    {
+        console.log(err);
+    });
+
+    const interval = setInterval(function ping()
+    {
+        wss.clients.forEach(function each(ws)
+        {
+            if(ws.readyState === 2)
+            {
+                if (ws.isAlive === false)
+                {
+                    return ws.terminate();
+                }
+
+                ws.isAlive = false;
+                ws.ping("ping");
+            }
+        });
+
+    }, 30000);
+}
+
+function heartbeat()
+{
+  this.isAlive = true;
 }
 
 function Listen(protocol, hostName, sslOptions)
 {
     try
     {
-        let server = null;
-
         hostName = hostName.split(":");
 
         let host = hostName[0];
@@ -84,3 +150,4 @@ exports.Listen = Listen;
 exports.CreateSchema = require("./Parser").CreateSchema;
 exports.Use = Use;
 exports.SetRoutePath = SetRoutePath;
+exports.StartStreaming = StartStreaming;
