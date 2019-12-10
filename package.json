@@ -1,0 +1,23 @@
+{
+  "name": "node_projection_api",
+  "version": "1.0.0",
+  "description": "This is a framework built over nodejs express framework. It is built as inspiration to GraphQL by facebook.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ignition123/node_projection_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ignition123/node_projection_api/issues"
+  },
+  "homepage": "https://github.com/ignition123/node_projection_api#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}
