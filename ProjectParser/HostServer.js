@@ -278,3 +278,4 @@ exports.SetRoutePath = SetRoutePath;
 exports.StartStreaming = StartStreaming;
 exports.CreateHttpStreaming = CreateHttpStreaming;
 exports.StartHttpStreaming = StartHttpStreaming;
+exports.App = app;
