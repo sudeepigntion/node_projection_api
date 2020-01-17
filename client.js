@@ -1,7 +1,7 @@
 const http2 = require('http2');
 const fs = require('fs');
 
-const client = http2.connect('http://religareonline.com:8100');
+const client = http2.connect('http://localhost:8100');
 
 var buffer = JSON.stringify({
 

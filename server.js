@@ -6,11 +6,11 @@ const GetProfile = require("./controllers/GetProfile");
 
 parserSchema.Project.CreateSchema({
     "Login":{
-        method:Login,
+        method:Login.Login,
         timeout:100,
     },
     "GetProfile":{
-        method:GetProfile,
+        method:GetProfile.GetProfile,
         timeout:100,
     }
 });
@@ -23,10 +23,10 @@ parserSchema.Project.Use(function(req, res, next)
     next();
 });
 
-parserSchema.Project.App.use(function(req,res)
-{
-    res.send("okok");
-});
+// parserSchema.Project.App.use(function(req,res)
+// {
+//     res.send("okok");
+// });
 
 parserSchema.Project.Listen("http","127.0.0.1:8000");
 

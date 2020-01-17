@@ -1,4 +1,4 @@
-async function Init(payload)
+async function Login(payload)
 {
     await sleep();
 
@@ -23,4 +23,4 @@ async function sleep()
     });
 }
 
-exports.Init = Init;
+exports.Login = Login;

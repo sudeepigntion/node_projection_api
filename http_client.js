@@ -97,7 +97,7 @@ function post(url, path, body)
 
 
 
-post("http://religareonline.com:8100", "/", {
+post("http://localhost:8100", "/", {
 
     "Login":{
 

@@ -1,4 +1,4 @@
-async function Init(payload)
+async function GetProfile(payload)
 {
     return new Promise((resolve, reject) =>{
         
@@ -9,4 +9,4 @@ async function Init(payload)
     });
 }
 
-exports.Init = Init;
+exports.GetProfile = GetProfile;
