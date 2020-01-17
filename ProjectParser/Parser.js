@@ -38,7 +38,7 @@ async function HandleRequest(req, res)
                 Promise.timeout = function(timeout, cb)
                 {
                     return Promise.race([
-                        Schema[key].method.Init(req.body),
+                        Schema[key].method(req.body[key]),
                         new Promise(function(resolve, reject)
                         {
                             setTimeout(function() { resolve(false) }, timeout);
@@ -93,7 +93,7 @@ async function HandleStreamingRequest(ws, message)
                 Promise.timeout = function(timeout, cb)
                 {
                     return Promise.race([
-                        Schema[key].method.Init(message),
+                        Schema[key].method(message[key]),
                         new Promise(function(resolve, reject)
                         {
                             setTimeout(function() { resolve(false) }, timeout);
@@ -150,7 +150,7 @@ async function HandleHttp2StreamingRequest(req, res, message)
                 Promise.timeout = function(timeout, cb)
                 {
                     return Promise.race([
-                        Schema[key].method.Init(message),
+                        Schema[key].method(message[key]),
                         new Promise(function(resolve, reject)
                         {
                             setTimeout(function() { resolve(false) }, timeout);
